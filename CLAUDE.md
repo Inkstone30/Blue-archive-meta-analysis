@@ -22,9 +22,10 @@
 - **SS/S/A 티어**: 커뮤니티 기반 학생 등급 체계
 
 ### 주요 커뮤니티
-- Reddit: `r/BlueArchive` (영어권 글로벌)
-- 디시인사이드: 블루아카이브 갤러리 (한국)
+- DC인사이드: 블루아카이브 마이너 갤러리 — **실제 수집 대상** (한국)
 - 나무위키: 학생 스탯·스킬 정보의 주요 출처
+- arca.live: Cloudflare JS Challenge로 단순 HTTP 수집 불가 (Playwright 필요)
+- Reddit `r/BlueArchive`: API 정책 변경으로 PRAW 방식 제한됨
 
 ### 업데이트 주기
 - 메인 업데이트: 약 4주 단위
@@ -37,7 +38,7 @@
 - **패키지 관리**: `pip` + `requirements.txt`
 - **노트북**: Jupyter (탐색적 분석용)
 - **대시보드**: Streamlit (`app/` 폴더)
-- **API 키 관리**: `.env` 파일 (절대 Git에 올리지 않음)
+- **API 키**: 현재 불필요 (수집 대상이 공개 웹페이지). `.env` 파일 구조는 유지
 
 ## 폴더 역할
 
@@ -65,8 +66,16 @@ reports/         - 최종 시각화 및 보고서 출력물
 2. 업데이트 이벤트 → 커뮤니티 감성 변화
 3. 학생 스탯/스킬 패턴 → 메타 지속성 예측
 
+## 수집 스크립트 현황
+
+| 파일 | 대상 | 수집 데이터 |
+|------|------|------------|
+| `src/collectors/collect_students.py` | SchaleDB GitHub JSON | 학생 194명, 48컬럼 |
+| `src/collectors/collect_community.py` | DC인사이드 블루아카이브 마이너 갤러리 | 게시글 제목·날짜·조회수·추천수 |
+
 ## 주의사항
 
-- 웹 스크래핑 시 robots.txt 준수, 과도한 요청 금지 (rate limiting 적용)
-- 개인정보가 포함된 유저 데이터는 수집하지 않음
-- 상업적 목적이 아닌 포트폴리오/학습 목적임을 명시
+- 웹 스크래핑 시 robots.txt 준수, 요청 간 3~5초 딜레이 적용
+- 닉네임만 수집, IP·이메일 등 개인식별정보 수집 안 함
+- 상업적 목적이 아닌 포트폴리오/학습 목적
+- DC인사이드 수집량 조정: `collect_community.py`의 `MAX_PAGES` 값 변경

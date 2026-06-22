@@ -18,10 +18,14 @@
 - 인기 캐릭터 vs 비인기 캐릭터의 매출 효과 비교
 - 콜라보 이벤트와 자체 학생 출시의 매출 차이 분석
 
-### Q2. 커뮤니티 여론(Reddit/디시)은 업데이트 이후 어떻게 변화하는가?
-- 업데이트 공지 전후 게시글·댓글의 감성 분석(긍/부정/중립)
+### Q2. 커뮤니티 여론(DC인사이드)은 업데이트 이후 어떻게 변화하는가?
+- 업데이트 전후 게시글 제목·본문의 감성 분석 (긍/부정/중립)
 - 논란이 된 사건(밸런스 패치, 서버 장애 등)과 여론 지수 상관관계
-- 한국(디시인사이드) vs 글로벌(Reddit) 반응 차이 비교
+- 추천수·조회수 변화로 보는 커뮤니티 반응 강도 측정
+
+> **데이터 소스 변경 사유**: Reddit API 정책 변경으로 PRAW 방식 제한.  
+> arca.live는 Cloudflare JS Challenge로 단순 HTTP 수집 불가.  
+> DC인사이드 마이너 갤러리는 robots.txt상 일반 크롤러 허용, 안정적 수집 가능.
 
 ### Q3. 어떤 특성을 가진 학생이 메타에서 오래 살아남는가?
 - 레이드 클리어율 상위 학생의 공통 스탯·스킬 패턴 분석
@@ -54,7 +58,7 @@ bluearc/
 | 데이터 | 출처 | 수집 방법 |
 |--------|------|-----------|
 | 앱 매출 순위 | 게볼루션(gvolution.com), AppMagic | 웹 스크래핑 |
-| 커뮤니티 여론 | Reddit r/BlueArchive | Reddit API (PRAW) |
+| 커뮤니티 여론 | DC인사이드 블루아카이브 마이너 갤러리 | 웹 스크래핑 (requests + BeautifulSoup) |
 | 학생 스탯·스킬 | 블루아카이브 나무위키, 팬 위키 | 웹 스크래핑 |
 | 레이드 클리어 데이터 | 블루아카이브 DB 팬사이트 | 웹 스크래핑 |
 | 업데이트 이력 | 공식 패치노트 | 수동 정리 |
@@ -76,14 +80,26 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 2. Jupyter 노트북 실행
+### 2. 데이터 수집 스크립트 실행
+
+```powershell
+# 가상환경 활성화 후:
+
+# SchaleDB 학생 데이터 수집
+python src/collectors/collect_students.py
+
+# DC인사이드 커뮤니티 게시글 수집 (기본 3페이지 ≈ 75~150건)
+python src/collectors/collect_community.py
+```
+
+### 3. Jupyter 노트북 실행
 
 ```bash
 jupyter notebook
 # 브라우저에서 notebooks/ 폴더 열기
 ```
 
-### 3. Streamlit 대시보드 실행
+### 4. Streamlit 대시보드 실행
 
 ```bash
 streamlit run app/dashboard.py
@@ -93,7 +109,7 @@ streamlit run app/dashboard.py
 
 ## 기술 스택
 
-- **데이터 수집**: `requests`, `praw`
+- **데이터 수집**: `requests`, `beautifulsoup4`
 - **데이터 처리**: `pandas`, `numpy`
 - **시각화**: `matplotlib`, `seaborn`, `plotly`
 - **분석/모델링**: `scikit-learn`, `scipy`
@@ -101,3 +117,13 @@ streamlit run app/dashboard.py
 - **대시보드**: `streamlit`
 
 ---
+
+## 진행 상황
+
+- [x] 프로젝트 구조 설정
+- [x] SchaleDB 학생 데이터 수집 (`collect_students.py` — 194명, 48컬럼)
+- [x] DC인사이드 커뮤니티 게시글 수집 (`collect_community.py`)
+- [ ] 탐색적 데이터 분석 (EDA)
+- [ ] 핵심 질문 분석
+- [ ] Streamlit 대시보드 구축
+- [ ] 최종 보고서 작성
