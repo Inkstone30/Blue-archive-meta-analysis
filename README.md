@@ -2,9 +2,9 @@
 
 > **"스탯 숫자가 메타를 설명할 수 있는가?"**  
 > 서브컬처 모바일 RPG 블루아카이브의 캐릭터 데이터(194명, 48컬럼)로  
-> EDA → 통계 검증 → 클러스터링 → 예측 모델까지 전체 분석 워크플로를 구축하는 포트폴리오 프로젝트.
+> EDA → 통계 검증 → 클러스터링 → 예측 모델까지 전체 분석 워크플로를 구축하는 프로젝트.
 
-> 이 프로젝트의 분석 워크플로 전체는 **Claude Code**로 진행했습니다.
+> 이 프로젝트의 분석 워크플의 일부는 **Claude Code**로 진행했습니다.
 
 ---
 
@@ -191,14 +191,3 @@ jupyter notebook
 | 대시보드 | `streamlit 1.58` |
 | 분석 환경 | Python 3.14, Jupyter, VS Code, Windows 11 |
 
----
-
-## 진행 현황
-
-- [x] 프로젝트 구조 설정 및 환경 구성
-- [x] SchaleDB 학생 데이터 수집기 (`collect_students.py` — 194명, 48컬럼)
-- [x] **Phase 1: EDA 완료** (`01_eda.ipynb` — 35셀, 9개 시각화)
-- [ ] Phase 2: 통계 검증 (`02_statistics.ipynb`)
-- [ ] Phase 3: K-means 클러스터링 (`03_clustering.ipynb`)
-- [ ] Phase 4: 예측 모델 + SHAP (`04_prediction.ipynb`)
-- [ ] Streamlit 대시보드 구축
