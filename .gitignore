@@ -58,9 +58,12 @@ desktop.ini
 .claude/
 
 # =====================================================
-# 보고서 출력물 (재생성 가능하므로 제외)
+# 보고서 출력물
 # =====================================================
 reports/*.pdf
 reports/*.html
-reports/*.png
+# 아카이브된 감성분석 이미지는 제외 (향후 확장용, 현재 메인 스코프 외)
+reports/sentiment_*.png
+reports/body_*.png
+# EDA 이미지(eda_*.png)는 추적 — README에서 GitHub로 바로 볼 수 있도록
 !reports/.gitkeep
